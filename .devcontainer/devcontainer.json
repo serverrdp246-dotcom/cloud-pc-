@@ -1,8 +1,7 @@
 {
-  "name": "Ubuntu 26.04 Cloud PC",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu26.04",
+  "name": "Ubuntu 24.04 Cloud PC with noVNC",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
 
-  // تخصيص إضافات وإعدادات محرر VS Code داخل الـ Codespace
   "customizations": {
     "vscode": {
       "extensions": [
@@ -10,20 +9,29 @@
         "esbenp.prettier-vscode"
       ],
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "zsh"
+        "terminal.integrated.defaultProfile.linux": "bash"
       }
     }
   },
 
-  // تثبيت أدوات برمجية إضافية تلقائياً (مثل Node.js و GitHub CLI)
   "features": {
     "ghcr.io/devcontainers/features/node:1": "latest",
-    "ghcr.io/devcontainers/features/github-cli:1": "latest"
+    "ghcr.io/devcontainers/features/github-cli:1": "latest",
+    // إضافة ميزة سطح المكتب و noVNC رسمياً
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "version": "latest"
+    }
   },
 
-  // أوامر يتم تنفيذها بعد اكتمال إنشاء الحاوية لأول مرة
-  "postCreateCommand": "echo 'Cloud PC is ready with Ubuntu 26.04!' && node -v",
+  // توجيه منفذ noVNC (6080) وإظهار رابط الوصول للويب
+  "forwardPorts": [6080],
+  "portsAttributes": {
+    "6080": {
+      "label": "noVNC Desktop GUI",
+      "onAutoForward": "notify"
+    }
+  },
 
-  // المستخدم الافتراضي (يتمتع بصلاحيات sudo لتثبيت الحزم)
+  "postCreateCommand": "echo 'Cloud PC is ready with noVNC GUI!'",
   "remoteUser": "vscode"
 }
