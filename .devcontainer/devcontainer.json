@@ -1,0 +1,29 @@
+{
+  "name": "Ubuntu 26.04 Cloud PC",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu26.04",
+
+  // تخصيص إضافات وإعدادات محرر VS Code داخل الـ Codespace
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
+    }
+  },
+
+  // تثبيت أدوات برمجية إضافية تلقائياً (مثل Node.js و GitHub CLI)
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": "latest",
+    "ghcr.io/devcontainers/features/github-cli:1": "latest"
+  },
+
+  // أوامر يتم تنفيذها بعد اكتمال إنشاء الحاوية لأول مرة
+  "postCreateCommand": "echo 'Cloud PC is ready with Ubuntu 26.04!' && node -v",
+
+  // المستخدم الافتراضي (يتمتع بصلاحيات sudo لتثبيت الحزم)
+  "remoteUser": "vscode"
+}
